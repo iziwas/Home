@@ -31,7 +31,8 @@ Module to manage my private collection
 """,
     'data': [
         'views/menus.xml',
-        'data/product_category.xml'
+        'views/product.xml',
+        'data/product_category.xml',
     ],
     'demo': [],
     'test': [],

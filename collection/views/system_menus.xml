@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Main Menu -->
+        <menuitem id="main_collection_menu" name="Collection" />
+
+        <!-- Collection Collection Menu -->
+        <menuitem id="collection_collection_menu" name="Collection"
+              parent="main_collection_menu" sequence="1" />
+
+        <menuitem id="collection_menu_product" name="Articles"
+                  sequence="1" action="product.product_normal_action"
+                  parent="collection_collection_menu" />
+
+        <menuitem id="collection_menu_author" name="Authors"
+                  sequence="2" action="collection.collection_partner_author_act_window"
+                  parent="collection_collection_menu" />
+
+        <menuitem id="collection_menu_editor" name="Editors"
+                  sequence="3" action="collection.collection_partner_editor_act_window"
+                  parent="collection_collection_menu" />
+
+        <!-- Collection Configuration Menu -->
+        <menuitem id="collection_configuration_menu" name="Configuration"
+              parent="main_collection_menu" sequence="2" />
+
+        <menuitem id="collection_configuration_product_category" name="Product Category"
+                  sequence="1" action="product.product_category_action_form"
+                  parent="collection_configuration_menu" />
+
+
+        <!-- res_partner Menu -->
+        <menuitem id="menu_partner_category_form"
+            action="collection.collection_partner_category_act_window"
+            name="Contact Types"
+            sequence="1" parent="contacts.res_partner_menu_config" />
+    </data>
+</odoo>

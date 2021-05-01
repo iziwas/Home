@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.actions.act_window" id="collection_partner_author_act_window">
+             <field name="name">Author Contacts</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_author', '=', True)]</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="collection_partner_editor_act_window">
+             <field name="name">Editor Contacts</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_editor', '=', True)]</field>
+        </record>
+    </data>
+</odoo>

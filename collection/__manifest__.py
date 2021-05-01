@@ -24,15 +24,18 @@
     'author': 'Iziwas',
     'maintainer': 'Iziwas',
     'category': 'Uncategorized',
-    'depends': ['product'],
+    'depends': ['product', 'contacts'],
     'description': """
 Module to manage my private collection
 ======================================
 """,
     'data': [
-        'views/menus.xml',
+        'views/partner_category.xml',
         'views/product.xml',
+        'views/res_partner.xml',
+        'views/system_menus.xml',
         'data/product_category.xml',
+        'models/security/ir.model.access.csv',
     ],
     'demo': [],
     'test': [],

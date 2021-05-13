@@ -19,6 +19,10 @@
                 <field name="type" position="after">
                     <field name="categ_id" position="move" />
                 </field>
+                <field name="default_code" position="replace" />
+                <field name="barcode" position="attributes">
+                    <attribute name="string">ISBN</attribute>
+                </field>
             </field>
         </record>
     </data>

@@ -10,6 +10,8 @@
                 <xpath expr="//div[@name='options']" position="replace" />
                 <xpath expr="//notebook/page[@name='sales']" position="replace" />
                 <xpath expr="//notebook/page[@name='purchase']" position="replace" />
+                <field name="lst_price" position="replace" />
+                <field name="standard_price" position="replace" />
             </field>
         </record>
     </data>

@@ -28,7 +28,6 @@
                   sequence="1" action="product.product_category_action_form"
                   parent="collection_configuration_menu" />
 
-
         <!-- res_partner Menu -->
         <menuitem id="menu_partner_category_form"
             action="collection.collection_partner_category_act_window"

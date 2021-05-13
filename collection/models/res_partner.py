@@ -1,6 +1,6 @@
 # coding: utf-8
 # encoding: utf-8
-from odoo import models, fields
+from odoo import models, fields, api
 
 
 class CollectionPartnerCategory(models.Model):
@@ -21,3 +21,17 @@ class CollectionPartner(models.Model):
                                related="partner_category_id.is_author")
     is_editor = fields.Boolean(string=u"Is Editor ?",
                                related="partner_category_id.is_editor")
+    book_author_ids = fields.One2many('product.product', 'author_id',
+                                      string=u"Author Books")
+    book_editor_ids = fields.One2many('product.product', 'editor_id',
+                                      string=u"Editor Books")
+    nb_books_author = fields.Integer(string="Number of books (Author)",
+                                     compute="_compute_nb_books")
+    nb_books_editor = fields.Integer(string="Number of books (Editor)",
+                                     compute="_compute_nb_books")
+
+    @api.multi
+    def _compute_nb_books(self):
+        for rec in self:
+            rec.nb_books_author = len(rec.book_author_ids)
+            rec.nb_books_editor = len(rec.book_editor_ids)

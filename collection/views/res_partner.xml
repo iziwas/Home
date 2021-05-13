@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- ir.actions.act_window -->
         <record model="ir.actions.act_window" id="collection_partner_author_act_window">
              <field name="name">Author Contacts</field>
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('is_author', '=', True)]</field>
+            <field name="context">{
+                'do_not_show_editor_information': True,
+                }
+            </field>
         </record>
 
         <record model="ir.actions.act_window" id="collection_partner_editor_act_window">
@@ -15,6 +20,50 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="domain">[('is_editor', '=', True)]</field>
+            <field name="context">{
+                'do_not_show_author_information': True,
+                }
+            </field>
+        </record>
+
+        <!-- res.partner views -->
+        <record model="ir.ui.view" id="collection_res_partner_tree">
+            <field name="name">collection.res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree" />
+            <field name="priority" eval="16" />
+            <field name="arch" type="xml">
+                <field name="email" position="replace" />
+                <field name="phone" position="replace">
+                    <field name="is_author" invisible="1" />
+                    <field name="is_editor" invisible="1" />
+                    <field name="nb_books_author"
+                           invisible="context.get('do_not_show_author_information')" />
+                    <field name="nb_books_editor"
+                           invisible="context.get('do_not_show_editor_information')" />
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="collection_res_partner_form">
+            <field name="name">collection.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="priority" eval="16" />
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='internal_notes']" position="replace" />
+                <xpath expr="//page[@name='sales_purchases']" position="replace" />
+
+                <field name="vat" position="replace">
+                    <field name="partner_category_id" />
+                </field>
+
+                <field name="category_id" position="after">
+                    <field name="customer" invisible="1" />
+                    <field name="supplier" invisible="1" />
+                    <field name="user_id" invisible="1" />
+                </field>
+            </field>
         </record>
     </data>
 </odoo>

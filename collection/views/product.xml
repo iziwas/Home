@@ -7,11 +7,18 @@
             <field name="inherit_id" ref="product.product_normal_form_view" />
             <field name="priority" eval="16" />
             <field name="arch" type="xml">
+                <form position="attributes">
+                    <attribute name="string">Collection's element</attribute>
+                </form>
+
                 <xpath expr="//div[@name='options']" position="replace" />
                 <xpath expr="//notebook/page[@name='sales']" position="replace" />
                 <xpath expr="//notebook/page[@name='purchase']" position="replace" />
-                <field name="lst_price" position="replace" />
-                <field name="standard_price" position="replace" />
+                <xpath expr="//group[@name='group_standard_price']" position="replace" />
+
+                <field name="type" position="after">
+                    <field name="categ_id" position="move" />
+                </field>
             </field>
         </record>
     </data>

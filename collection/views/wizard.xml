@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="collection_wizard_librairie_de_paris">
+            <field name="name">collection.wizard.librairie.de.paris</field>
+            <field name="model">collection.wizard.product.librairie.de.paris</field>
+            <field name="arch" type="xml">
+                <form string="Add Book with `Librairie de Paris` information">
+                    <group>
+                        <field name="isbn" />
+                    </group>
+                    <footer>
+                        <button name="add_book" string="Add" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

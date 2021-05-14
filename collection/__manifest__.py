@@ -34,6 +34,7 @@ Module to manage my private collection
         'views/product.xml',
         'views/res_partner.xml',
         'views/system_menus.xml',
+        'views/wizard.xml',
         'data/product_category.xml',
         'models/security/ir.model.access.csv',
     ],

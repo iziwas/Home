@@ -29,6 +29,8 @@ class CollectionPartner(models.Model):
                                      compute="_compute_nb_books")
     nb_books_editor = fields.Integer(string="Number of books (Editor)",
                                      compute="_compute_nb_books")
+    collection_ids = fields.One2many('collection.collection', 'editor_id',
+                                     string=u"Collection")
 
     @api.multi
     def _compute_nb_books(self):

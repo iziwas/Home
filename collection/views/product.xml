@@ -39,6 +39,7 @@
                 <xpath expr="//notebook/page[@name='sales']" position="replace" />
                 <xpath expr="//notebook/page[@name='purchase']" position="replace" />
                 <xpath expr="//group[@name='group_standard_price']" position="replace" />
+                <xpath expr="//page[@name='general_information']/group[2]" position="replace" />
 
                 <field name="type" position="after">
                     <field name="categ_id" position="move" />
@@ -53,6 +54,7 @@
                 <field name="barcode" position="after">
                     <field name="author_id" domain="[('is_author', '=', True)]" />
                     <field name="editor_id" domain="[('is_editor', '=', True)]" />
+                    <field name="summary" />
                 </field>
                 <field name="type" position="attributes">
                     <attribute name="invisible">1</attribute>

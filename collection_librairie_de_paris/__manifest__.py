@@ -19,23 +19,18 @@
 #
 
 {
-    'name': 'Collection',
+    'name': 'Collection Librairie de Paris',
     'version': '0.1',
     'author': 'Iziwas',
     'maintainer': 'Iziwas',
     'category': 'Uncategorized',
-    'depends': ['product', 'contacts'],
+    'depends': ['collection'],
     'description': """
-Module to manage my private collection
-======================================
+Module to manage books information with 'Librairie de Paris'
+============================================================
 """,
     'data': [
-        'views/partner_category.xml',
-        'views/product.xml',
-        'views/res_partner.xml',
-        'views/system_menus.xml',
-        'data/product_category.xml',
-        'models/security/ir.model.access.csv',
+        'views/wizard.xml',
     ],
     'demo': [],
     'test': [],

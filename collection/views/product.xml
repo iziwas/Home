@@ -1,8 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <record model="ir.ui.view" id="collection_product_tree_view">
+            <field name="name">collection.product.tree.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view" />
+            <field name="priority" eval="16" />
+            <field name="arch" type="xml">
+                <tree position="attributes">
+                    <attribute name="string">Books</attribute>
+                </tree>
+                <field name="default_code" position="replace" />
+                <field name="lst_price" position="replace" />
+                <field name="standard_price" position="replace" />
+
+                <field name="name" position="before">
+                    <field name="barcode" position="move" />
+                </field>
+
+                <field name="name" position="after">
+                    <field name="editor_id" />
+                    <field name="author_id" />
+                </field>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="collection_product_form_view">
-            <field name="name">collection_product_form_view</field>
+            <field name="name">collection.product.form.view</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view" />
             <field name="priority" eval="16" />
@@ -29,6 +53,25 @@
                 <field name="barcode" position="after">
                     <field name="author_id" domain="[('is_author', '=', True)]" />
                     <field name="editor_id" domain="[('is_editor', '=', True)]" />
+                </field>
+                <field name="type" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="collection_product_search_view">
+            <field name="name">collection.product.search.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view" />
+            <field name="priority" eval="16" />
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="author_id" />
+                    <field name="editor_id" />
+                </field>
+                <field name="name" position="attributes">
+                    <attribute name="string">Book</attribute>
                 </field>
             </field>
         </record>

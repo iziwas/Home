@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="partner_category_author" model="collection.partner.category">
+             <field name="name">Author</field>
+             <field name="is_author">1</field>
+        </record>
+        <record id="partner_category_editor" model="collection.partner.category">
+             <field name="name">Editor</field>
+             <field name="is_editor">1</field>
+        </record>
+    </data>
+</odoo>

@@ -16,5 +16,18 @@
                 </form>
             </field>
         </record>
+
+        <record id="collection_librairie_de_paris_add_book_act_window"
+                model="ir.actions.act_window">
+            <field name="name">Add Book with 'Librairie de Paris' information</field>
+            <field name="res_model">collection.wizard.product.librairie.de.paris</field>
+            <field name="view_mode">form</field>
+            <field name="view_type">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem id="collection_librairie_de_paris_menu" name="Add a book"
+                  sequence="4" action="collection_librairie_de_paris_add_book_act_window"
+                  parent="collection.collection_collection_menu" />
     </data>
 </odoo>

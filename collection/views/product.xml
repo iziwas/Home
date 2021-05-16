@@ -54,6 +54,7 @@
                 <field name="barcode" position="after">
                     <field name="author_id" domain="[('is_author', '=', True)]" />
                     <field name="editor_id" domain="[('is_editor', '=', True)]" />
+                    <field name="release_date" />
                     <field name="summary" />
                 </field>
                 <field name="type" position="attributes">

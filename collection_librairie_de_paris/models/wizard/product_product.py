@@ -1,13 +1,15 @@
 # coding: utf-8
 # encoding: utf-8
 import requests
-from odoo import models, fields
+from odoo import models, fields, tools
 from odoo.exceptions import ValidationError
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
-from PIL import Image
 from datetime import datetime
 import locale
+import base64
+from odoo.modules.module import get_module_resource
+
 
 URL_LIBRAIRIE_DE_PARIS = 'https://www.librairie-de-paris.fr/listeliv.php?' \
                          'base=paper&mots_recherche='
@@ -35,30 +37,47 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
         book = {}
 
         # Get Title information of book
-        book.append({'name': self._get_title()})
+        book['barcode'] = self.isbn
+        book['name']= self._get_title()
 
         # Get Summary
-        book.append({'summary': self._get_summary()})
+        book['summary'] = self._get_summary()
 
         # Get Auhtor
         author_name = self._get_author()
         author = self.env['res.partner'].search([('name', 'ilike', author_name)])
         if not author:
+            image_name = 'author.png'
+            image_path = get_module_resource('collection', 'static/src/img', image_name)
+            image = tools.image_resize_image_big(base64.b64encode(
+                open(image_path, 'rb').read()))
+
             author = self.env['res.partner'].create({
                 'name': author_name,
-                'categ_id': self.env.ref('collection.partner_category_author')
+                'partner_category_id': 
+                    self.env.ref('collection.partner_category_author').id,
+                'image': image,
             })
-        book.append({'author_id': author.id})
+        book['author_id'] = author.id
 
         # Get Editor
         editor_name = self._get_editor()
-        editor = self.env['res.partner'].search([('name', 'ilike', editor_name)])
-        if not editor:
-            editor = self.env['res.partner'].create({
-                'name': author_name,
-                'categ_id': self.env.ref('collection.partner_category_editor')
-            })
-        book.append({'editor_id': editor.id})
+        if editor_name:
+            editor = self.env['res.partner'].search([('name', 'ilike', editor_name)])
+            if not editor:
+                image_name = 'publisher.png'
+                image_path = get_module_resource('collection', 'static/src/img',
+                                                 image_name)
+                image = tools.image_resize_image_big(base64.b64encode(
+                    open(image_path, 'rb').read()))
+
+                editor = self.env['res.partner'].create({
+                    'name': editor_name,
+                    'partner_category_id':
+                        self.env.ref('collection.partner_category_editor').id,
+                    'image': image,
+                })
+            book['editor_id'] = editor.id
 
         # Get Collection
         collection_name = self._get_collection()
@@ -68,7 +87,26 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
             collection = self.env['collection.collection'].create({
                 'name': collection_name,
             })
-        book.append({'collection_id_id': collection.id})
+        book['collection_id'] = collection.id
+
+        # Get Release date
+        book['release_date'] = self._get_release_date()
+
+        # Get image
+        book['image'] = self._get_image()
+
+        self.env['product.product'].create(book)
+
+        tree_view_id = self.env.ref('collection.collection_product_tree_view').ids
+        form_view_id = self.env.ref('collection.collection_product_form_view').ids
+        return {
+            'name': u"List of Books",
+            'view_mode': 'tree',
+            'views': [[tree_view_id, 'tree'], [form_view_id, 'form']],
+            'res_model': 'product.product',
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+        }
 
 
     def _check_if_no_result(self):
@@ -87,10 +125,12 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
         return title
 
     def _get_summary(self):
-        split_resume = self._soup.find("p", {'class': 'livre_resume'}).get_text().split('\n')
-        summary = False
-        for i in range(0, len(split_resume) - 2):
-            summary += split_resume[i].strip()
+        split_resume = self._soup.find("p", {'class': 'livre_resume'})
+        summary = ''
+        if split_resume:
+            split_resume = split_resume.get_text().split('\n')
+            for i in range(0, len(split_resume) - 2):
+                summary += split_resume[i].strip() if split_resume[i] else ''
         return summary
 
     def _get_author(self):
@@ -100,7 +140,7 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
         return book_author
 
     def _get_editor(self):
-        book_editor = self._soup.find("h2", {'class': 'livre_auteur'})
+        book_editor = self._soup.find("li", {'class': 'editeur'})
         if book_editor:
             book_editor = book_editor.get_text().strip()
         return book_editor
@@ -110,3 +150,17 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
         if book_collection:
             book_collection = book_collection.get_text().strip()
         return book_collection
+
+    def _get_release_date(self):
+        locale.setlocale(locale.LC_ALL, 'fr_FR.utf-8')
+        livre_release_date = self._soup.find("li", {'class': 'MiseEnLigne'})
+        release_date = False
+        if livre_release_date:
+            livre_release_date = livre_release_date.get_text().strip()
+            release_date = datetime.strptime(livre_release_date, '%d %B %Y')
+        return release_date
+
+    def _get_image(self):
+        image_url = self._soup.find("img", {'class': 'lazy'})['data-original']
+        headers = {'user-agent': self._get_fake_useragent()}
+        return base64.b64encode(requests.get(image_url, headers=headers).content)

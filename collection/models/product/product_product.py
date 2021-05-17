@@ -12,3 +12,6 @@ class CollectionProduct(models.Model):
     ebook_file = fields.Binary(string=u"EBook File", attachment=True)
     summary = fields.Text(string=u"Summary")
     release_date = fields.Date(string=u"Release Date")
+
+    _sql_constraints = [('barcode_uniq', 'unique (barcode)',
+                         u"ISBN must be unique.")]

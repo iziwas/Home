@@ -30,6 +30,7 @@ Module to manage my private collection
 ======================================
 """,
     'data': [
+        'views/collection_isbn.xml',
         'views/partner_category.xml',
         'views/product.xml',
         'views/res_partner.xml',

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="collection_isbn_view_tree">
+            <field name="name">collection_isbn_view_tree</field>
+            <field name="model">collection.isbn</field>
+            <field name="arch" type="xml">
+                <tree editable="top">
+                    <field name="isbn" />
+                    <field name="data_found" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="collection_isbn_act_window">
+             <field name="name">ISBN collected</field>
+            <field name="res_model">collection.isbn</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+        </record>
+    </data>
+</odoo>

@@ -33,7 +33,7 @@ Module to manage books information with 'Librairie de Paris'
         'views/wizard.xml',
     ],
     'external_dependencies': {
-        'python': ['dateparser', 'fase_useragent'],
+        'python': ['dateparser', 'fake_useragent'],
         'bin': [],
     },
     'demo': [],

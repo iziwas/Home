@@ -1,6 +1,7 @@
 # coding: utf-8
 # encoding: utf-8
 import requests
+import dateparser
 from odoo import models, fields, tools
 from odoo.exceptions import ValidationError
 from bs4 import BeautifulSoup
@@ -152,12 +153,11 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
         return book_collection
 
     def _get_release_date(self):
-        locale.setlocale(locale.LC_ALL, 'fr_FR.utf8')
         livre_release_date = self._soup.find("li", {'class': 'MiseEnLigne'})
         release_date = False
         if livre_release_date:
             livre_release_date = livre_release_date.get_text().strip()
-            release_date = datetime.strptime(livre_release_date, '%d %B %Y')
+            release_date = datetime.strptime(dateparser.parse(livre_release_date).date(), '%Y-%m-%d')
         return release_date
 
     def _get_image(self):

@@ -152,7 +152,7 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
         return book_collection
 
     def _get_release_date(self):
-        locale.setlocale(locale.LC_ALL, 'C')
+        locale.setlocale(locale.LC_ALL, 'fr_FR.utf-8')
         livre_release_date = self._soup.find("li", {'class': 'MiseEnLigne'})
         release_date = False
         if livre_release_date:

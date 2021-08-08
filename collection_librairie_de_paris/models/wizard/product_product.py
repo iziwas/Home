@@ -157,7 +157,7 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
         release_date = False
         if livre_release_date:
             livre_release_date = livre_release_date.get_text().strip()
-            release_date = datetime.strptime(dateparser.parse(livre_release_date).date(), '%Y-%m-%d')
+            release_date = dateparser.parse(livre_release_date).date().strftime('%d/%m/%Y')
         return release_date
 
     def _get_image(self):

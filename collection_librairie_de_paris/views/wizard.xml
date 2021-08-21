@@ -8,6 +8,7 @@
                 <form string="Add Book with `Librairie de Paris` information">
                     <group>
                         <field name="isbn" />
+                        <field name="is_ebook" />
                     </group>
                     <footer>
                         <button name="add_book" string="Add" type="object" class="oe_highlight"/>

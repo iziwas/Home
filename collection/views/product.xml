@@ -10,9 +10,18 @@
                 <tree position="attributes">
                     <attribute name="string">Books</attribute>
                 </tree>
-                <field name="default_code" position="replace" />
-                <field name="lst_price" position="replace" />
-                <field name="standard_price" position="replace" />
+
+                <field name="default_code" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="lst_price" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+
+                <field name="standard_price" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
 
                 <field name="name" position="before">
                     <field name="barcode" position="move" />
@@ -35,11 +44,25 @@
                     <attribute name="string">Collection's element</attribute>
                 </form>
 
-                <xpath expr="//div[@name='options']" position="replace" />
-                <xpath expr="//notebook/page[@name='sales']" position="replace" />
-                <xpath expr="//notebook/page[@name='purchase']" position="replace" />
-                <xpath expr="//group[@name='group_standard_price']" position="replace" />
-                <xpath expr="//page[@name='general_information']/group[2]" position="replace" />
+                <xpath expr="//div[@name='options']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='sales']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//notebook/page[@name='purchase']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//group[@name='group_standard_price']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//page[@name='general_information']/group[2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
 
                 <field name="type" position="after">
                     <field name="categ_id" position="move" />
@@ -47,7 +70,9 @@
                            attrs="{'invisible': [('categ_id',
                            '!=', 5)]}" />
                 </field>
-                <field name="default_code" position="replace" />
+                <field name="default_code" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
                 <field name="barcode" position="attributes">
                     <attribute name="string">ISBN</attribute>
                 </field>
@@ -69,6 +94,9 @@
             <field name="inherit_id" ref="product.product_search_form_view" />
             <field name="priority" eval="16" />
             <field name="arch" type="xml">
+                <filter name="consumable" position="after">
+                    <filter name="is_book" string="Est un livre" domain="[('is_book', '=', True)]" />
+                </filter>
                 <field name="name" position="after">
                     <field name="author_id" />
                     <field name="editor_id" />
@@ -77,6 +105,10 @@
                     <attribute name="string">Book</attribute>
                 </field>
             </field>
+        </record>
+
+        <record id="product.product_normal_action" model="ir.actions.act_window">
+            <field name="context">{'search_default_is_book': 1}</field>
         </record>
     </data>
 </odoo>

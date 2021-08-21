@@ -22,6 +22,7 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
     _soup = False
 
     isbn = fields.Char(string=u"ISBN", size=13, required=True)
+    is_ebook = fields.Boolean(string="Est un Ebook ?", default=False, required=True)
 
     def add_book(self):
         url = URL_LIBRAIRIE_DE_PARIS + self.isbn
@@ -39,7 +40,7 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
 
         # Get Title information of book
         book['barcode'] = self.isbn
-        book['name']= self._get_title()
+        book['name'] = self._get_title()
 
         # Get Summary
         book['summary'] = self._get_summary()
@@ -95,6 +96,10 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
 
         # Get image
         book['image'] = self._get_image()
+
+        # Create book
+        book['categ_id'] = self.env.ref('collection.product_category_ebook').id if self.is_ebook else \
+            self.env.ref('collection.product_category_ebook').id
 
         self.env['product.product'].create(book)
 

@@ -17,7 +17,7 @@ URL_LIBRAIRIE_DE_PARIS = 'https://www.librairie-de-paris.fr/listeliv.php?' \
 
 
 class CollectionWizardLibrairieDeParis(models.TransientModel):
-    _name = 'collection.wizard.product.librairie.de.paris'
+    _name = 'collection.wizard.librairie.de.paris'
     _description = "Wizard to add books with 'Librairie de Paris' information"
     _soup = False
 

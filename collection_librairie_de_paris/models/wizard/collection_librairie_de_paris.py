@@ -103,16 +103,7 @@ class CollectionWizardLibrairieDeParis(models.TransientModel):
 
         self.env['product.product'].create(book)
 
-        tree_view_id = self.env.ref('collection.collection_product_tree_view').ids
-        form_view_id = self.env.ref('collection.collection_product_form_view').ids
-        return {
-            'name': u"List of Books",
-            'view_mode': 'tree',
-            'views': [[tree_view_id, 'tree'], [form_view_id, 'form']],
-            'res_model': 'product.product',
-            'type': 'ir.actions.act_window',
-            'target': 'current',
-        }
+        return {'type': 'ir.actions.client', 'tag': 'reload'}
 
 
     def _check_if_no_result(self):

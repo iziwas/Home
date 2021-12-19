@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+        <!-- Views -->
         <record model="ir.ui.view" id="collection_wizard_librairie_de_paris">
             <field name="name">collection.wizard.librairie.de.paris</field>
             <field name="model">collection.wizard.librairie.de.paris</field>
@@ -18,6 +19,23 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="collection_wizard_import_file_librairie_de_paris">
+            <field name="name">collection.wizard.import.file.librairie.de.paris</field>
+            <field name="model">collection.librairie.de.paris.import.file</field>
+            <field name="arch" type="xml">
+                <form string="Add Book with ISBN file">
+                    <group>
+                        <field name="isbn_file" widget="binary" />
+                    </group>
+                    <footer>
+                        <button name="add_books" string="Add" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Actions -->
         <record id="collection_librairie_de_paris_add_book_act_window"
                 model="ir.actions.act_window">
             <field name="name">Add Book with 'Librairie de Paris' information</field>
@@ -27,8 +45,26 @@
             <field name="target">new</field>
         </record>
 
-        <menuitem id="collection_librairie_de_paris_menu" name="Add a book"
-                  sequence="4" action="collection_librairie_de_paris_add_book_act_window"
-                  parent="collection.collection_collection_menu" />
+        <record id="import_file_collection_librairie_de_paris_add_book_act_window"
+                model="ir.actions.act_window">
+            <field name="name">Add Book with ISBN file</field>
+            <field name="res_model">collection.librairie.de.paris.import.file</field>
+            <field name="view_mode">form</field>
+            <field name="view_type">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <!-- Menus -->
+        <!-- Main Menu -->
+        <menuitem id="librairie_de_paris_menu" name="Librairie de Paris"
+              parent="collection.main_collection_menu" sequence="2" />
+
+        <menuitem id="menu_librairie_de_paris_add_book" name="Add a book"
+                  sequence="1" action="collection_librairie_de_paris_add_book_act_window"
+                  parent="librairie_de_paris_menu" />
+
+        <menuitem id="menun_librairie_de_paris_import_file" name="Import ISBN file"
+                  sequence="2" action="import_file_collection_librairie_de_paris_add_book_act_window"
+                  parent="librairie_de_paris_menu" />
     </data>
 </odoo>

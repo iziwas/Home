@@ -4,7 +4,7 @@ from odoo import models, fields, api
 
 
 class CollectionProduct(models.Model):
-    _inherit = 'product.product'
+    _inherit = 'product.template'
 
     author_id = fields.Many2one('res.partner', string=u"Author")
     editor_id = fields.Many2one('res.partner', string=u"Editor")

@@ -20,11 +20,11 @@
 
 {
     'name': 'Collection',
-    'version': '0.1',
+    'version': '12.0',
     'author': 'Iziwas',
     'maintainer': 'Iziwas',
     'category': 'Uncategorized',
-    'depends': ['product', 'contacts'],
+    'depends': ['sale_management', 'contacts'],
     'description': """
 Module to manage my private collection
 ======================================

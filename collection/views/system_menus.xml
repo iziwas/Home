@@ -9,7 +9,7 @@
               parent="main_collection_menu" sequence="1" />
 
         <menuitem id="collection_menu_product" name="Articles"
-                  sequence="1" action="product.product_normal_action"
+                  sequence="1" action="product.product_template_action"
                   parent="collection_collection_menu" />
 
         <menuitem id="collection_menu_author" name="Authors"
@@ -22,7 +22,7 @@
 
         <!-- Collection Configuration Menu -->
         <menuitem id="collection_configuration_menu" name="Configuration"
-              parent="main_collection_menu" sequence="2" />
+              parent="main_collection_menu" sequence="99" />
 
         <menuitem id="collection_configuration_product_category" name="Product Category"
                   sequence="1" action="product.product_category_action_form"

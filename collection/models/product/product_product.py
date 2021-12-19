@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 
 
-class CollectionProduct(models.Model):
+class CollectionProductProduct(models.Model):
     _inherit = 'product.product'
 
     author_id = fields.Many2one('res.partner', string=u"Author")

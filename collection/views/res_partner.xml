@@ -7,9 +7,9 @@
             <field name="res_model">res.partner</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="domain">[('is_author', '=', True)]</field>
             <field name="context">{
                 'do_not_show_editor_information': True,
+                'search_default_is_author': True,
                 }
             </field>
         </record>
@@ -22,6 +22,7 @@
             <field name="domain">[('is_editor', '=', True)]</field>
             <field name="context">{
                 'do_not_show_author_information': True,
+                'search_default_is_editor': True,
                 }
             </field>
         </record>
@@ -65,5 +66,28 @@
                 </field>
             </field>
         </record>
+
+        <record model="ir.ui.view" id="collection_res_partner_search_view">
+            <field name="name">collection_res_partner_search_view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter" />
+            <field name="priority" eval="16" />
+            <field name="arch" type="xml">
+                <filter name="filter_my_partners" position="replace">
+                    <filter name="authors" string="Authors" domain="[('is_author', '=', True)]" />
+                    <filter name="editors" string="Editors" domain="[('is_editor', '=', True)]" />
+                </filter>
+
+                <filter name="type_person" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+
+                <filter name="type_company" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </filter>
+            </field>
+        </record>
+
+
     </data>
 </odoo>

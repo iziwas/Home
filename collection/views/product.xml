@@ -15,16 +15,12 @@
                     <attribute name="invisible">1</attribute>
                 </field>
 
-                <field name="lst_price" position="attributes">
-                    <attribute name="invisible">1</attribute>
-                </field>
-
                 <field name="standard_price" position="attributes">
                     <attribute name="invisible">1</attribute>
                 </field>
 
                 <field name="name" position="before">
-                    <field name="barcode" position="move" />
+                    <field name="barcode" />
                 </field>
 
                 <field name="name" position="after">
@@ -37,7 +33,7 @@
         <record model="ir.ui.view" id="collection_product_form_view">
             <field name="name">collection.product.form.view</field>
             <field name="model">product.product</field>
-            <field name="inherit_id" ref="product.product_normal_form_view" />
+            <field name="inherit_id" ref="product.product_template_only_form_view" />
             <field name="priority" eval="16" />
             <field name="arch" type="xml">
                 <form position="attributes">
@@ -88,26 +84,26 @@
             </field>
         </record>
 
-        <record model="ir.ui.view" id="collection_product_search_view">
-            <field name="name">collection.product.search.view</field>
-            <field name="model">product.product</field>
-            <field name="inherit_id" ref="product.product_search_form_view" />
-            <field name="priority" eval="16" />
-            <field name="arch" type="xml">
-                <filter name="consumable" position="after">
-                    <filter name="is_book" string="Est un livre" domain="[('is_book', '=', True)]" />
-                </filter>
-                <field name="name" position="after">
-                    <field name="author_id" />
-                    <field name="editor_id" />
-                </field>
-                <field name="name" position="attributes">
-                    <attribute name="string">Book</attribute>
-                </field>
-            </field>
-        </record>
+<!--        <record model="ir.ui.view" id="collection_product_search_view">-->
+<!--            <field name="name">collection.product.search.view</field>-->
+<!--            <field name="model">product.product</field>-->
+<!--            <field name="inherit_id" ref="product.product_product_search_view" />-->
+<!--            <field name="priority" eval="16" />-->
+<!--            <field name="arch" type="xml">-->
+<!--                <filter name="consumable" position="after">-->
+<!--                    <filter name="is_book" string="Est un livre" domain="[('is_book', '=', True)]" />-->
+<!--                </filter>-->
+<!--                <field name="name" position="after">-->
+<!--                    <field name="author_id" />-->
+<!--                    <field name="editor_id" />-->
+<!--                </field>-->
+<!--                <field name="name" position="attributes">-->
+<!--                    <attribute name="string">Book</attribute>-->
+<!--                </field>-->
+<!--            </field>-->
+<!--        </record>-->
 
-        <record id="product.product_normal_action" model="ir.actions.act_window">
+        <record id="product.product_template_action" model="ir.actions.act_window">
             <field name="context">{'search_default_is_book': 1}</field>
         </record>
     </data>

@@ -9,4 +9,4 @@ class CollectionCollection(models.Model):
 
     name = fields.Char(string=u"Name")
     editor_id = fields.Many2one('res.partner', string=u"Editor")
-    book_ids = fields.One2many('product.product', 'collection_id', string=u"Books")
+    book_ids = fields.One2many('product.product', 'collection_id', string=u"Books", ondelete='cascade')
